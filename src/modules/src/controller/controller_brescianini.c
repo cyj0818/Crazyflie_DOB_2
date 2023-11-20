@@ -81,6 +81,14 @@ static float heuristic_yaw = 5;
 // Struct for logging position information
 static bool isInit = false;
 
+static float Justthrust;
+static float JustTorqueX;
+static float OriginTorqueY;
+static float JustTorqueZ;
+static float MeasuredRoll;
+static float MeasuredPitch;
+static float MeasuredYaw;
+
 void controllerBrescianiniInit(void) {
   if (isInit) {
     return;
@@ -396,6 +404,16 @@ void controllerBrescianini(control_t *control,
     control->torqueX = control_torque.x;
     control->torqueY = control_torque.y;
     control->torqueZ = control_torque.z;
+    
+    Justthrust = control->thrustSi; 
+    JustTorqueX = control->torqueX; 
+    OriginTorqueY = control->torqueY;
+    JustTorqueZ = control->torqueZ;
+    MeasuredRoll = state->attitude.roll;
+    MeasuredPitch = -state->attitude.pitch;
+    MeasuredYaw = state->attitude.yaw;
+
+    
   }
 
   control->controlMode = controlModeForceTorque;
@@ -405,6 +423,16 @@ bool controllerBrescianiniTest(void) {
   return true;
 }
 
+
+LOG_GROUP_START(JUST)
+LOG_ADD(LOG_FLOAT, Justthrust, &Justthrust)
+LOG_ADD(LOG_FLOAT, JustTorqueX, &JustTorqueX)
+LOG_ADD(LOG_FLOAT, OriginTorqueY, &OriginTorqueY)
+LOG_ADD(LOG_FLOAT, JustTorqueZ, &JustTorqueZ)
+LOG_ADD(LOG_FLOAT, MeasuredRoll, &MeasuredRoll)
+LOG_ADD(LOG_FLOAT, MeasuredPitch, &MeasuredPitch)
+LOG_ADD(LOG_FLOAT, MeasuredYaw, &MeasuredYaw)
+LOG_GROUP_STOP(JUST)
 
 PARAM_GROUP_START(ctrlAtt)
 PARAM_ADD(PARAM_FLOAT, tau_xy, &tau_xy)

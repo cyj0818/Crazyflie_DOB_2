@@ -24,6 +24,7 @@
  * power_distribution_quadrotor.c - Crazyflie stock power distribution code
  */
 
+
 #include "power_distribution.h"
 
 #include <string.h>
@@ -196,3 +197,4 @@ PARAM_ADD(PARAM_FLOAT, pwmToThrustB, &pwmToThrustB)
  */
 PARAM_ADD(PARAM_FLOAT, armLength, &armLength)
 PARAM_GROUP_STOP(quadSysId)
+

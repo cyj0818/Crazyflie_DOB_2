@@ -10,8 +10,8 @@
 
 #include "autoconf.h"
 
-#define DEFAULT_CONTROLLER ControllerTypePID
-static ControllerType currentController = ControllerTypeAutoSelect;
+#define DEFAULT_CONTROLLER ControllerTypeBrescianini
+static ControllerType currentController = ControllerTypeBrescianini;
 
 static void initController();
 
@@ -87,3 +87,4 @@ void controller(control_t *control, const setpoint_t *setpoint, const sensorData
 const char* controllerGetName() {
   return controllerFunctions[currentController].name;
 }
+
